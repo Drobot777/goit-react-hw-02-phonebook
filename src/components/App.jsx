@@ -11,11 +11,11 @@ export class App extends Component {
   };
 
   toggle = (name, tel) => {
-    this.state.contacts.forEach(date=>{
-      if(date.name===name){
-        return alert('Rosie Simpson is already in contacts')
+    this.state.contacts.forEach (date => {
+      if (date.name === name) {
+        return alert ('Rosie Simpson is already in contacts');
       }
-    })
+    });
     return this.state.contacts.push ({
       name: name,
       id: nanoid (),
@@ -28,10 +28,10 @@ export class App extends Component {
   deleteContact = id => {
     this.state.contacts.forEach ((el, i) => {
       if (el.id === id) {
-        return delete this.state.contacts[i],
-        this.setState ({});
+        return delete this.state.contacts[i];
       }
     });
+    this.setState ({});
   };
 
   filterItems = query => {
