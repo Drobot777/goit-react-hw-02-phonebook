@@ -28,7 +28,8 @@ export class App extends Component {
   deleteContact = id => {
     this.state.contacts.forEach ((el, i) => {
       if (el.id === id) {
-        return delete this.state.contacts[i], this.setState ({});
+        return delete this.state.contacts[i],
+        this.setState ({});
       }
     });
   };
