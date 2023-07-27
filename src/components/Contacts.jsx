@@ -29,13 +29,13 @@ export class Contacts extends Component {
   render () {
     return (
       <u className={css.item}>
-        {this.renderContacts (this.props.filterItems (this.props.valueFilter))}
+        {this.renderContacts (this.props.filterItems ())}
       </u>
     );
   }
 }
 Contacts.propTypes = {
-  valueFilter: PropTypes.string.isRequired,
+  valueFilter:PropTypes.string.isRequired,
   filterItems: PropTypes.func.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

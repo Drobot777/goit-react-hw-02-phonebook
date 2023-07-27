@@ -22,6 +22,7 @@ export class App extends Component {
       tel: tel,
     });
   };
+
   changeFilter = value => {
     this.setState ({filter: value});
   };
@@ -34,16 +35,19 @@ export class App extends Component {
     this.setState ({});
   };
 
-  filterItems = query => {
-    if (query === '') {
+  filterItems = () => {
+    if (this.state.filter === '') {
       return;
     }
     let arryContacts = this.state.contacts.filter (el => {
-      return el.name.toLowerCase ().indexOf (query.toLowerCase ()) > -1;
+      return (
+        el.name.toLowerCase ().indexOf (this.state.filter.toLowerCase ()) > -1
+      );
     });
     return arryContacts;
   };
   render () {
+    const{filter}=this.state
     return (
       <div>
 
@@ -52,7 +56,7 @@ export class App extends Component {
         <h2 style={{textAlign: 'center'}}>Contact</h2>
         <Filter changeFilter={this.changeFilter} />
         <Contacts
-          valueFilter={this.state.filter}
+          valueFilter={filter}
           filterItems={this.filterItems}
           deleteContact={this.deleteContact}
         />
