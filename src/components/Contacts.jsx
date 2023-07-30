@@ -6,36 +6,62 @@ export class Contacts extends Component {
     let idToDelete = e.currentTarget.id;
     this.props.deleteContact (idToDelete);
   };
-  renderContacts = arry => {
-    if (!arry) {
-      return;
-    }
-    return arry.map ((element, i) => {
+  filterItems = ary => {
+    let arryContacts = ary.filter (el => {
+      return (
+        el.name.toLowerCase ().indexOf (this.props.valueFilter.toLowerCase ()) >
+        -1
+      );
+    });
+    return arryContacts.map ((el, i) => {
       return (
         <li
           key={i.toString ()}
-          id={element.id}
+          id={el.id}
           className={css.list}
           onClick={this.deleteContacts}
         >
-          {element.name}
+          {el.name}
           :
-          {element.tel}
+          {el.tel}
           <button type="button" className={css.button}>delete</button>
         </li>
       );
     });
   };
+  renderContacts = arry => {
+    if (arry.length === 0) {
+      return;
+    }
+    if (this.props.valueFilter === '') {
+      return arry.map ((el, i) => {
+        return (
+          <li
+            key={i.toString ()}
+            id={el.id}
+            className={css.list}
+            onClick={this.deleteContacts}
+          >
+            {el.name}
+            :
+            {el.tel}
+            <button type="button" className={css.button}>delete</button>
+          </li>
+        );
+      });
+    }
+    return this.filterItems (arry);
+  };
   render () {
     return (
       <u className={css.item}>
-        {this.renderContacts (this.props.filterItems ())}
+        {this.renderContacts (this.props.allContacts)}
       </u>
     );
   }
 }
 Contacts.propTypes = {
-  valueFilter:PropTypes.string.isRequired,
-  filterItems: PropTypes.func.isRequired,
+  allContacts: PropTypes.array.isRequired,
+  valueFilter: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
 };

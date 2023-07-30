@@ -11,15 +11,22 @@ export class App extends Component {
   };
 
   toggle = (name, tel) => {
+    let masName = [];
     this.state.contacts.forEach (date => {
-      if (date.name === name) {
-        return alert ('Rosie Simpson is already in contacts');
-      }
+      return masName.push (date.name);
     });
-    return this.state.contacts.push ({
-      name: name,
-      id: nanoid (),
-      tel: tel,
+    if (masName.includes (name)) {
+      return alert ('Rosie Simpson is already in contacts');
+    }
+    return this.setState ({
+      contacts: [
+        ...this.state.contacts,
+        {
+          name: name,
+          id: nanoid (),
+          tel: tel,
+        },
+      ],
     });
   };
 
@@ -35,19 +42,10 @@ export class App extends Component {
     this.setState ({});
   };
 
-  filterItems = () => {
-    if (this.state.filter === '') {
-      return;
-    }
-    let arryContacts = this.state.contacts.filter (el => {
-      return (
-        el.name.toLowerCase ().indexOf (this.state.filter.toLowerCase ()) > -1
-      );
-    });
-    return arryContacts;
-  };
   render () {
-    const{filter}=this.state
+    const {filter} = this.state;
+    const {contacts} = this.state;
+
     return (
       <div>
 
@@ -56,8 +54,8 @@ export class App extends Component {
         <h2 style={{textAlign: 'center'}}>Contact</h2>
         <Filter changeFilter={this.changeFilter} />
         <Contacts
+          allContacts={contacts}
           valueFilter={filter}
-          filterItems={this.filterItems}
           deleteContact={this.deleteContact}
         />
       </div>
